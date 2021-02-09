@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Volume de Calda</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+    <main>
+      <div class="container">
+        <div class="title"> Calculadora de Volume de Calda para Pulverizações Agrícolas </div>
+        <div class="input">
+            <label>Vazão por bico (l/min):</label>
+            <input type="text" id='vazao'>
+        </div>
+        <div class="input">
+            <label>Velocidade de deslocamento (Km/h):</label>
+            <input type="number" id='velocidade'>
+        </div>
+        <div class="input">
+            <label>Espaçamento entre bicos (cm):</label>
+            <input type="number" id='espacamento'>
+        </div>
+
+        <button id='calcular'>Calcular Volume de Calda Necessária</button>
+
+        <div class="result" id='resultado'></div>
+      </div>
+    </main>
+
+    <script src="./vazao.js"></script>
+
+  </body>
+</html>
