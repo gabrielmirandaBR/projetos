@@ -1,6 +1,7 @@
 * {
   margin: 0;
   padding: 0;
+  width: 100%;
 }
 
 body {
@@ -8,3 +9,69 @@ body {
   font-size: 16px;
   line-height: 1.5;
 }
+
+.links {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.links a {
+  padding-left: 120px;
+  text-decoration: none;
+  font-weight: bold;
+  color: black;
+  font-size: 18px
+}
+
+.links a:hover {
+  font-size: 1.1em;
+  transition: 0.2s;
+}
+
+.about-us-part {
+  background-image: url(/images/header.png);
+  background-size: cover;
+  background-position-y: 50%;
+  padding: 250px 0;
+}
+
+.about-us-part img {
+  position: absolute;
+  right: 780px;
+  bottom: 70px;
+  width: 350px;
+  border-radius: 50%;
+  opacity: .8;
+}
+
+.about-us-part img:hover {
+  opacity: 1;
+  transition: 0.5s;
+  width: 390px;
+}
+
+.about-us-text {
+  position: absolute;
+  left: 670px;
+  bottom: 20px;
+  max-width: 45%;
+  padding: 70px 0;
+}
+
+.about-us-text p {
+  text-align: justify;
+  font-size: 1.1em;
+  margin-top: 50px;
+}
+
+#paragraph-header  {
+  font-size: 1.2em;
+  text-align: center;
+  margin-top: 60px;
+  padding: 10px 0;
+  font-weight: bolder;
+}
+
+
+
+
