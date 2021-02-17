@@ -176,7 +176,7 @@ body {
   background-image: url(/images/contacts.png);
   background-size: cover;
   padding: 120px 0;
-  background-position: 10mm 0;
+  background-position: center 0;
 }
 
 .contacts-container {
