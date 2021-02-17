@@ -133,12 +133,12 @@ body {
   position: relative;
   width: 50%;
   top: 40px;
-  left: 610px;
+  left: 590px;
 }
 
 .photos-part img {
   width: 200px;
-  padding: 6px;
+  padding: 2px;
   border: white solid 5px ;
   border-radius: 5%;
   border-style: solid;
