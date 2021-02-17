@@ -56,6 +56,7 @@ body {
   bottom: 20px;
   max-width: 45%;
   padding: 100px 0;
+  cursor: alias;
 }
 
 .about-us-text p {
@@ -95,6 +96,9 @@ body {
 .activities-container:hover {
   background-color: rgb(255, 255, 0);
   transition: 1s;
+}
+.activities-text {
+  cursor: alias;
 }
 
 .activities-text h4 {
@@ -165,4 +169,27 @@ body {
 .photos-part img:nth-child(5) {
   border-radius: 15%;
   margin: 15px 0 0 10px;
+}
+
+.contacts-part {
+  margin-top: 50px;
+  background-image: url(/images/contacts.png);
+  background-size: cover;
+  padding: 120px 0;
+  background-position: 10mm 0;
+}
+
+.contacts-container {
+  text-align: center;
+  padding: 140px 0;
+}
+
+.contacts-part img {
+  width: 120px;
+  padding-left: 25px;
+}
+
+.contacts-part img:hover {
+  transition: 1s;
+  width: 130px;
 }
