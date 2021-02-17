@@ -11,28 +11,34 @@ body {
 }
 
 .links {
+  position: fixed;
+  z-index: 1;
   text-align: center;
-  margin: 30px 0;
+  margin: 10px 0;
+   
 }
 
 .links a {
-  padding-left: 120px;
-  text-decoration: none;
-  font-weight: bold;
+  padding-left: 30px;
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: 700;
   color: black;
-  font-size: 18px
+  text-decoration:underline ;
 }
 
 .links a:hover {
   font-size: 1.1em;
   transition: 0.2s;
+  color: rgb(41, 38, 38);
 }
 
 .about-us-part {
   background-image: url(/images/header.png);
   background-size: cover;
   background-position-y: 50%;
-  padding: 250px 0;
+  background-position-x: 10mm;
+  padding: 280px 0;
 }
 
 .about-us-part img {
@@ -84,7 +90,7 @@ body {
 .activities-container {
   display: inline-block;
   position: relative;
-  top: 100px;
+  top: 85px;
   vertical-align: middle;
   max-width: 30%;
   min-height: 370px;
@@ -125,7 +131,7 @@ body {
   margin-top: 50px;
   background-image: url(/images/photos.png);
   background-size: cover;
-  background-position-y: 110%;
+  background-position-y: 4mm;
   padding: 90px 0;
 }
 
@@ -176,7 +182,7 @@ body {
   background-image: url(/images/contacts.png);
   background-size: cover;
   padding: 120px 0;
-  background-position: center 0;
+  background-position: center 10mm;
 }
 
 .contacts-container {
