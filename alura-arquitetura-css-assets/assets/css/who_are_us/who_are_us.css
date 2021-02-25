@@ -1,0 +1,5 @@
+.who_are_us {
+  display: flex;
+  flex-direction: column;
+  padding: 2.5em;
+}
