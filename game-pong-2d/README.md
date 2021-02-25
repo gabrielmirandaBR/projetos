@@ -2,7 +2,7 @@
 
 ### Objetivo
 ---
-<p> Reprodução do jogo Pong 2D para Atari. Todo o projeto foi realizado na blibioteca p5.js </p>
+<p> Reprodução do jogo Pong 2D para Atari. Todo o projeto foi realizado na blibioteca p5.js. </p>
 
 ### Tutorial
 ---
