@@ -1,0 +1,9 @@
+.list-content {
+  align-items: center;
+  border: 1px solid rgba(0, 0, 0, 0.159);
+  border-radius: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 30px 0;
+}

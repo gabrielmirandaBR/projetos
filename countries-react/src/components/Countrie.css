@@ -1,0 +1,26 @@
+.list-countries {
+  list-style: none;
+  margin: 25px;
+}
+
+.list-countries:hover {
+  background-color: rgba(0, 0, 0, 0.042);
+  border-radius: 25px;
+}
+
+.country-link {
+  align-items: center;
+  display: flex;
+  min-width: 200px;
+  text-decoration: none;
+}
+
+.flag {
+  border-radius: 5px;
+}
+
+.country-name {
+  color: black;
+  margin-left: 7px;
+  text-decoration: none;
+}
