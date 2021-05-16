@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Challenge</title>
+    <link rel="stylesheet" href="/node_modules/bulma/css/bulma.min.css">
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+    <header>
+      <section class="hero is-primary">
+        <div class="hero-body has-text-centered">
+          <h1 class="title is-1">Goals and Highlights</h1>
+        </div>
+      </section>
+    </header>
+
+    <main>
+      <div class="column container is-fullis-widescreen">
+        <section class="input-container is-flex is-justify-content-center mt-6">
+          <div class="select is-multiple is-primary is-rounded is-half"> 
+            <select name="competitions" id="competitions" class="is-focused">
+              <option value="">choose the competition...</option>
+            </select>
+          </div>
+          <button type="submit" id="btn-search" class="button is-success is-rounded is-normal">Pesquisar</button>
+        </section>
+      </div>
+
+      <section class="section container is-widescreen p-6 hero" id="teams-section">
+          <div class="teams is-flex-direction-column is-justify-content-center is-align-items-center has-text-centered" id="teams-container"></div>
+      </section> 
+    </main>
+
+    <footer class="footer">
+      <div class="content has-text-centered">
+        <p><a href="https://github.com/gabrielmirandaBR/API-challenge" target="_blank">GitHub</a></p>
+      </div>
+    </footer>
+
+    <script src="/script.js"></script>
+  </body>
+
+</html>
