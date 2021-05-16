@@ -1,4 +1,4 @@
-# :nerd_face: Repositório de Projetos Paralelos :computer:
+# :nerd_face: Repositório de Projetos :computer:
 
 ![GitHub last commit (branch)](https://img.shields.io/github/last-commit/gabrielmirandaBR/Projetos/master)
 
