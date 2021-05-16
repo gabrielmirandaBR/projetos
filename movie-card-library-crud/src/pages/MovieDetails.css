@@ -1,0 +1,46 @@
+.movie-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.movie-details {
+  align-items: center;
+  border: 1px solid gray;
+  border-radius: 5px;
+  box-shadow: 0 10px 13px -7px black , inset 2px 5px 10px -5px rgba(0, 0, 0, 0.42);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 10px 0;
+  padding: 15px;
+  width: 50%;
+}
+
+.subtitle {
+  font-weight: 600;
+}
+
+.genre {
+  font-weight: 600;
+}
+
+.links-container {
+  margin: 15px;
+}
+
+.link-edit, .link-back, .link-delete {
+  border: 1px solid black;
+  border-radius: 3px;
+  color: black;
+  font-weight: 600;
+  margin-left: 25px;
+  padding: 5px;
+  text-decoration: none;
+}
+
+.link-edit:hover, .link-back:hover, .link-delete:hover {
+  background-color: rgba(222, 184, 135, 0.57);
+  transition: 0.5s;
+}

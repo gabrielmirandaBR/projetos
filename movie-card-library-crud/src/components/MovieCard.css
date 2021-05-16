@@ -1,0 +1,50 @@
+.movie-card {
+  align-items: center;
+  border: 1px solid gray;
+  border-radius: 5px;
+  box-shadow: 0 10px 13px -7px black , inset 2px 5px 10px -5px rgba(0, 0, 0, 0.42);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 10px 0;
+  padding: 15px;
+  width: 70%;
+}
+
+.title {
+  font-family: monospace;
+  font-size: 1.8em;
+}
+
+.image {
+  border-radius: 5px;
+  box-shadow: 4px 5px 7px 2px rgba(0, 0, 0, 0.87);
+  width: 75%;
+}
+
+.storyline {
+  font-family: monospace;
+  font-size: 1.2em;
+  line-height: 1.8em;
+  text-align: center;
+  width: 80%;
+}
+
+.movie-card nav {
+  margin: 5px;
+}
+
+.link-details {
+  border: 1px solid black;
+  border-radius: 3px;
+  color: black;
+  font-weight: 600;
+  padding: 5px;
+  text-decoration: none;
+}
+
+.link-details:hover {
+  background-color: rgba(222, 184, 135, 0.57);
+  transition: 0.5s;
+}
