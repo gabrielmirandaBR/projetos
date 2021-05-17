@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
 import NoteList from './components/NoteList';
+import RegistrationForm from './components/RegistrationForm';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>Titulo</h1>
+        <RegistrationForm />
         <NoteList />
       </div>
     );
