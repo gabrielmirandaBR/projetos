@@ -1,4 +1,7 @@
+import { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+
+import { AuthContext } from '../App';
 
 import illustrationImg from '../assets/images/illustration.svg';
 import logoImg from '../assets/images/logo.svg';
@@ -6,14 +9,17 @@ import googleIconImage from '../assets/images/google-icon.svg';
 
 import { Button } from '../components/Button';
 
-
 import '../styles/auth.scss';
 
 export function Home() {
   const history = useHistory();
-
+  const { user, signInWithGoogle } = useContext(AuthContext)
   
-  function handleCreateRoom() {
+  async function handleCreateRoom() {
+    if(!user) { // se o usuário já estiver logado nao faz a requisição novamente
+      await signInWithGoogle()
+    }
+
     history.push('/rooms/new');
   };
 

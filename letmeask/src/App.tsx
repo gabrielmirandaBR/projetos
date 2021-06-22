@@ -12,8 +12,8 @@ type User = {
 }
 
 type AuthContextType = {
-  user: User | undefined
-  signInWithGoogle: () => void, // função que nao apresenta retorno
+  user: User | undefined;
+  signInWithGoogle: () => Promise<void>, // função que retorna uma Promise sem parâmetro
 }
 
 export const AuthContext = createContext({} as AuthContextType);
@@ -23,10 +23,10 @@ export const AuthContext = createContext({} as AuthContextType);
     const [user, setUser] = useState<User>(); // useState irá usar os parâmetros de User, por isso <User>
 
 
-  function signInWithGoogle() {
+  async function signInWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
 
-    auth.signInWithPopup(provider).then(result => {
+    const result = await auth.signInWithPopup(provider);
   
     if(result.user) {
       const { displayName, photoURL, uid } = result.user;
@@ -41,8 +41,7 @@ export const AuthContext = createContext({} as AuthContextType);
         avatar: photoURL,
       });
     }
-  });
-}
+  }
   
   return (
     <AuthContext.Provider value={ { user, signInWithGoogle } }>
