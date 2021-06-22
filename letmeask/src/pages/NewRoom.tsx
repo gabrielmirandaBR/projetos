@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom'
 import illustrationImg from '../assets/images/illustration.svg';
 import logoImg from '../assets/images/logo.svg';
 
+import { Button } from '../components/Button';
+
 
 import '../styles/auth.scss';
-import { Button } from '../components/Button';
 
 export function NewRoom() {
   return (
@@ -13,7 +14,7 @@ export function NewRoom() {
       <aside>
         <img src={ illustrationImg } alt="Ilustração simbolizando perguntas e respostas" />
         <strong>Crie salas de Q&amp;A ao-vivo</strong>
-        <p>Tire as dpuvidas de sua audiência em tempo-real</p>
+        <p>Tire as dúvidas de sua audiência em tempo-real</p>
       </aside>
       <main>
         <div className="main-content">
