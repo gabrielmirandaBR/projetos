@@ -6,14 +6,20 @@ import googleIconImage from '../assets/images/google-icon.svg';
 
 import '../styles/auth.scss';
 import { Button } from '../components/Button';
+import { firebase, auth } from '../services/firebase';
 
 export function Home() {
   const history = useHistory();
 
+  function handleCreateRoom() {
+    const provider = new firebase.auth.GoogleAuthProvider();
 
-  function navigateToNewRoom() {
-    history.push('/rooms/new');
-  }
+    auth.signInWithPopup(provider).then(result => {
+      console.log(result);
+      history.push('/rooms/new');
+    });
+
+  };
 
   return (
     <div id="page-auth">
@@ -25,7 +31,7 @@ export function Home() {
       <main>
         <div className="main-content">
           <img src={ logoImg } alt="Letmeask"  />
-          <button onClick={navigateToNewRoom} className="create-room">
+          <button onClick={ handleCreateRoom } className="create-room">
             <img src={ googleIconImage } alt="Logo do Google" />
             Crie sua sala com Google
           </button>
