@@ -16,13 +16,13 @@ type AuthContextProviderProps = {
   children: ReactNode;
 }
 
-export const AuthContext = createContext({} as AuthContextType);
+export const AuthContext = createContext({} as AuthContextType); // hook utilizado para criar contexto
 
 export function AuthContextProvider (props: AuthContextProviderProps) {
   const [user, setUser] = useState<User>(); // useState irá usar os parâmetros de User, por isso <User>
 
-  useEffect(() => { // 1 parametro = qual funcao quer executar | 2 paramentro = quando será executada(sempre um array) vazio, siginifica que a função será executada uma única vez
-    const unsubscribe = auth.onAuthStateChanged( user => {
+  useEffect(() => { // 1 parametro = qual funcao quer executar após a renderização da página | 2 paramentro = quando será executada(sempre um array) vazio, siginifica que a função será executada uma única vez
+    const unsubscribe = auth.onAuthStateChanged( user => { // observador para identificar o usuário https://firebase.google.com/docs/auth/web/manage-users
       if(user) {
         const { displayName, photoURL, uid } = user;
 
@@ -45,18 +45,18 @@ export function AuthContextProvider (props: AuthContextProviderProps) {
 
 
   async function signInWithGoogle() {
-    const provider = new firebase.auth.GoogleAuthProvider();
+    const provider = new firebase.auth.GoogleAuthProvider(); // chama as funções do firebase ( faz uma nova requisição )
 
-    const result = await auth.signInWithPopup(provider);
+    const result = await auth.signInWithPopup(provider); // função do firebase que irá abrir um pop-up para realizar um o signIn
 
     if(result.user) {
       const { displayName, photoURL, uid } = result.user;
 
-      if(!displayName || !photoURL) {
+      if(!displayName || !photoURL) { // caso não tenha foto ou nome
         throw new Error('Missing information from Google Account.');
       } 
 
-      setUser({
+      setUser({ // seta o estado com as informações vindas da função do firebase
         id: uid,
         name: displayName,
         avatar: photoURL,

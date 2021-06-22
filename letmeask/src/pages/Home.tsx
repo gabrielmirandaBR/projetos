@@ -10,15 +10,15 @@ import '../styles/auth.scss';
 import { useAuth } from '../hooks/useAuth';
 
 export function Home() {
-  const history = useHistory();
-  const { user, signInWithGoogle } = useAuth()
+  const history = useHistory(); //hook utilizado para acessar as informações de navegação https://reactrouter.com/web/api/Hooks/usehistory
+  const { user, signInWithGoogle } = useAuth();
   
   async function handleCreateRoom() {
     if(!user) { // se o usuário já estiver logado nao faz a requisição novamente
       await signInWithGoogle()
     }
-    
-    history.push('/rooms/new');
+
+    history.push('/rooms/new'); // redireciona para a pagina /rooms/new
   };
 
   return (
