@@ -17,7 +17,7 @@ export function Home() {
     if(!user) { // se o usuário já estiver logado nao faz a requisição novamente
       await signInWithGoogle()
     }
-
+    
     history.push('/rooms/new');
   };
 
@@ -26,7 +26,7 @@ export function Home() {
       <aside>
         <img src={ illustrationImg } alt="Ilustração simbolizando perguntas e respostas" />
         <strong>Crie salas de Q&amp;A ao-vivo</strong>
-        <p>Tire as dpuvidas de sua audiência em tempo-real</p>
+        <p>Tire as dúvidas de sua audiência em tempo-real</p>
       </aside>
       <main>
         <div className="main-content">

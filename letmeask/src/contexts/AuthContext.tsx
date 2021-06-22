@@ -21,7 +21,7 @@ export const AuthContext = createContext({} as AuthContextType);
 export function AuthContextProvider (props: AuthContextProviderProps) {
   const [user, setUser] = useState<User>(); // useState irá usar os parâmetros de User, por isso <User>
 
-  useEffect(() => {
+  useEffect(() => { // 1 parametro = qual funcao quer executar | 2 paramentro = quando será executada(sempre um array) vazio, siginifica que a função será executada uma única vez
     const unsubscribe = auth.onAuthStateChanged( user => {
       if(user) {
         const { displayName, photoURL, uid } = user;
@@ -41,7 +41,7 @@ export function AuthContextProvider (props: AuthContextProviderProps) {
     return () => {  // Para fazer com que o eventListener pare sua função (boa prática)
       unsubscribe();
     }
-  }, []) // 1 parametro = qual funcao quer executar | 2 paramentro = quando será executada(sempre um array) vazio, siginifica que a função será executada uma única vez
+  }, [])
 
 
   async function signInWithGoogle() {
