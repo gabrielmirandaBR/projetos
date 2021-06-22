@@ -9,9 +9,9 @@ import './styles/global.scss';
 
 ReactDOM.render(
   <BrowserRouter>
-  <AuthContextProvider>
+    <AuthContextProvider>
       <App />
-  </AuthContextProvider>
+    </AuthContextProvider>
   </BrowserRouter>,
   document.getElementById('root')
 );
