@@ -5,7 +5,8 @@ import illustrationImg from '../assets/images/illustration.svg';
 import logoImg from '../assets/images/logo.svg';
 
 import { Button } from '../components/Button';
-//import { useAuth } from '../hooks/useAuth';
+import { database } from '../services/firebase';
+import { useAuth } from '../hooks/useAuth';
 
 
 import '../styles/auth.scss';
@@ -14,10 +15,22 @@ import '../styles/auth.scss';
 export function NewRoom() {
 
   const [newRoom, setNewRoom] = useState(''); // seta estado do input
-  //const { user } = useAuth();
+  const { user } = useAuth();
 
   async function handleCreateRoom(event: FormEvent) {
-    event.preventDefault()
+    event.preventDefault();
+
+    if(newRoom.trim() === '') { //trim remove espaço entre a direita e esquerda. Se o numero da sala for vazio, a função retorna 
+      return; 
+    }
+
+    const roomRef = database.ref('rooms'); // dentro do banco de dados haverá uma categoria chamada rooms que poderá ser acrescentado dados
+
+
+    const firebaseRoom = await roomRef.push({ // irá acrescentar informação ao banco de dados
+      title: newRoom,
+      authorId: user?.id
+    });
   }
 
   return (
