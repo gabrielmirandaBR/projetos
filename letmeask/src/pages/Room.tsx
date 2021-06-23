@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import logoImg from '../assets/images/logo.svg';
@@ -11,13 +11,59 @@ import { database } from '../services/firebase';
 import '../styles/room.scss';
 
 
+type FirebaseQuestions = Record<string, { // Record no TS é para identificar um objeto
+  author: {
+    name: string,
+    avatar: string,
+  },
+  content: string,
+  isAnswered: boolean,
+  isHighLighted: boolean,
+}>
+
 type RoomParams = {
   id: string;
+}
+
+type Question = {
+  id: string,
+  author: {
+    name: string,
+    avatar: string,
+  },
+  content: string,
+  isAnswered: boolean,
+  isHighLighted: boolean,
 }
 
 export function Room() {
   const params = useParams<RoomParams>(); // <> é um generic do TypeScript para que a função saiba qual tipo de parâmetro irá receber
   const roomId = params.id;
+  const [questions, setQuestions] = useState<Question[]>([]);
+  const [title, setTitle] = useState('');
+
+  useEffect(()=> {
+    const roomRef = database.ref(`rooms/${roomId}`) // acessa a referencia do banco de dados para saber onde estão as perguntas
+    
+    roomRef.on('value', room => { //documentacao do firebase --> on é um event listener (em tempo real) que oberserva que qualquer informação mudar ele executará o código e substituir as info em tela
+      const databaseRoom = room.val();
+      const fireBaseQuestions: FirebaseQuestions = databaseRoom.questions ?? {};
+
+      const parsedQuestions = Object.entries(fireBaseQuestions).map(([key, value]) => {
+        return {
+          id: key,
+          content: value.content,
+          author: value.author,
+          isHighLighted: value.isHighLighted,
+          isAnswered: value.isAnswered,
+        }
+      });
+
+      setQuestions(parsedQuestions);
+      setTitle(databaseRoom.title);
+    });
+
+  }, [roomId]);
 
   const [newQuestion, setNewQuestion] = useState('');
   const { user } = useAuth();
@@ -35,7 +81,7 @@ export function Room() {
 
     const question = { // cria um objeto com as informações para cada pergunta
       content: newQuestion,
-      auth: {
+      author: {
         name: user.name,
         avatar: user.avatar,
       },
@@ -43,7 +89,7 @@ export function Room() {
       isAnswered: false, // se a pergunta já foi respondida ou nao
     };
 
-    await database.ref(`rooms/${roomId}/questions`).push(question); //  acessa a sala com seu id(conf do banco de dados) e cria uma nova informação chamada questions com a question criada no state 
+    await database.ref(`rooms/${roomId}/questions`).push(question); //  acessa a sala com seu id(conf do banco de dados) e salva uma lista(por isso do push) informação chamada questions com a question criada no state 
     
     setNewQuestion('');
   }
@@ -59,8 +105,8 @@ export function Room() {
 
       <main>
         <div className="room-title">
-          <h1>Sala React</h1>
-          <span>4 perguntas</span>
+          <h1>Sala {title}</h1>
+          {questions.length > 0 && <span>{questions.length} pergunta(s)</span>}
         </div>
 
         <form onSubmit={ handleSendQuestion }>
@@ -82,6 +128,8 @@ export function Room() {
             <Button type="submit" disabled={ !user }>Enviar pergunta</Button>
           </div>
         </form>
+
+        {JSON.stringify(questions)}
       </main>
     </div>
   );
