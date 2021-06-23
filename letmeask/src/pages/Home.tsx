@@ -14,7 +14,7 @@ export function Home() {
   const { user, signInWithGoogle } = useAuth();
   
   async function handleCreateRoom() {
-    if(!user) { // se o usuário já estiver logado nao faz a requisição novamente
+    if(!user) { // se o não estiver salvo abre o pop-up para entrar e se usuário já estiver logado nao faz a requisição novamente
       await signInWithGoogle()
     }
 
