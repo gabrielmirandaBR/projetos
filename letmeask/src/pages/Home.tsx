@@ -18,7 +18,7 @@ export function Home() {
   const [roomCode, setRoomCode] = useState('');
   
   async function handleCreateRoom() {
-    if(!user) { // se o não estiver salvo abre o pop-up para entrar e se usuário já estiver logado nao faz a requisição novamente
+    if(!user) { // se não estiver salvo abre o pop-up para entrar e se usuário já estiver logado nao faz a requisição novamente
       await signInWithGoogle();
     }
 
@@ -32,9 +32,9 @@ export function Home() {
       return;
     }
 
-    const roomRef = await database.ref(`rooms/${ roomCode }`).get() //busca todos os registros com get
+    const roomRef = await database.ref(`rooms/${ roomCode }`).get() //acessa o banco de dados do firebase e busca todos os registros com get
 
-    if(!roomRef.exists()) {
+    if(!roomRef.exists()) { // se nao existir o id da sala
       alert('Room does not exists.');
       return;
     }
