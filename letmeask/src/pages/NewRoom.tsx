@@ -1,5 +1,5 @@
 import { FormEvent, useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import illustrationImg from '../assets/images/illustration.svg';
 import logoImg from '../assets/images/logo.svg';
@@ -16,6 +16,7 @@ export function NewRoom() {
 
   const [newRoom, setNewRoom] = useState(''); // seta estado do input
   const { user } = useAuth();
+  const  history  = useHistory();
 
   async function handleCreateRoom(event: FormEvent) {
     event.preventDefault();
@@ -31,6 +32,8 @@ export function NewRoom() {
       title: newRoom,
       authorId: user?.id
     });
+
+    history.push(`/rooms/${firebaseRoom.key}`); // redireciona para a sala com /rooms/id do usuario no firebase
   }
 
   return (
