@@ -46,10 +46,11 @@ export function Room() {
     const roomRef = database.ref(`rooms/${roomId}`) // acessa a referencia do banco de dados para saber onde estão as perguntas
     
     roomRef.on('value', room => { //documentacao do firebase --> on é um event listener (em tempo real) que oberserva que qualquer informação mudar ele executará o código e substituir as info em tela
-      const databaseRoom = room.val();
+      const databaseRoom = room.val(); // pega as informações do banco de dados
+      console.log(databaseRoom)
       const fireBaseQuestions: FirebaseQuestions = databaseRoom.questions ?? {};
 
-      const parsedQuestions = Object.entries(fireBaseQuestions).map(([key, value]) => {
+      const parsedQuestions = Object.entries(fireBaseQuestions).map(([key, value]) => { // o firebase retorna um objeto e poir isso foi necessário criar um array com Object.entries
         return {
           id: key,
           content: value.content,
