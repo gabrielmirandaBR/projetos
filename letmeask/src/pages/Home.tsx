@@ -18,7 +18,7 @@ export function Home() {
   const [roomCode, setRoomCode] = useState('');
   
   async function handleCreateRoom() {
-    if(!user) { // se não estiver salvo abre o pop-up para entrar e se usuário já estiver logado nao faz a requisição novamente
+    if(!user) { // se o usuário não estiver salvo(useEffect com [], garante que users existirá antes do componente ser renderizado), isso evita novas requisições desnecessárias, caso já tiver o user
       await signInWithGoogle();
     }
 
@@ -28,23 +28,23 @@ export function Home() {
   async function handleJoinRoom(event: FormEvent) {
     event.preventDefault();
 
-    if(roomCode.trim() === '') {
+    if(roomCode.trim() === '') { // se o valor do input estiver em branco faz um retorno, ou seja, não acontece nada.
       return;
     }
 
-    const roomRef = await database.ref(`rooms/${ roomCode }`).get() //acessa o banco de dados do firebase e busca todos os registros com get
+    const roomRef = await database.ref(`rooms/${ roomCode }`).get() //acessa o banco de dados do firebase e pega o id com a funcao get. Tal id é armazenado como o estado do componente(valor do input)
 
-    if(!roomRef.exists()) { // se nao existir o id da sala
+    if(!roomRef.exists()) { // funcao firebasse se nao existir o id da sala retorna um alert
       alert('Room does not exists.');
       return;
     }
 
-    if(roomRef.val().endedAt) {
+    if(roomRef.val().endedAt) { // funcao do firebase que retorna true caso haja a chave endedAt
       alert('Room already closed.');
       return;
     }
 
-    history.push(`/rooms/${ roomCode }`)
+    history.push(`/rooms/${ roomCode }`) // depois de realizar as verificações, o usuário é redirecionado para a página Room, pegando o valor do estado roomCode(que é o id do bando de dados) e acrescetando na rota
   }
 
   return (
@@ -66,8 +66,8 @@ export function Home() {
             <input 
               type="text" 
               placeholder="Digite o código da sala"
-              onChange={event => setRoomCode(event.target.value)}
-              value={roomCode}
+              onChange={ event => setRoomCode(event.target.value) }
+              value={ roomCode }
             />
             <Button type="submit">
               Entrar na sala

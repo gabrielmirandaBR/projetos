@@ -21,14 +21,14 @@ export const AuthContext = createContext({} as AuthContextType); // hook utiliza
 export function AuthContextProvider (props: AuthContextProviderProps) {
   const [user, setUser] = useState<User>(); // useState irá usar os parâmetros de User, por isso <User>
 
-  useEffect(() => { // 1 parametro = qual funcao quer executar após a renderização da página | 2 paramentro = quando será executada(sempre um array) vazio, siginifica que a função será executada uma unica vez quando o componenete for renderizado
+  useEffect(() => { // 1 parametro = qual funcao quer executar | 2 paramentro = quando será executada(sempre um array). se for vazio, siginifica que a função será executada uma unica vez, similar ao componentDidMount
     const unsubscribe = auth.onAuthStateChanged( user => { // funcao do firebase - observador para identificar o usuário https://firebase.google.com/docs/auth/web/manage-users
       if(user) {
         const { displayName, photoURL, uid } = user;
 
         if(!displayName || !photoURL) {
           throw new Error('Missing information from Google Account.');
-        } 
+        }
   
         setUser({
           id: uid,
@@ -38,7 +38,7 @@ export function AuthContextProvider (props: AuthContextProviderProps) {
       };
     });
 
-    return () => {  // Para fazer com que o eventListener pare sua função (boa prática)
+    return () => {  // Para fazer com que o eventListener pare sua função, ou seja, depois que o componente for desmontado parar de chamar a funcao  (boa prática)
       unsubscribe();
     }
   }, [])
