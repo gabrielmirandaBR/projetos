@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import logoImg from '../assets/images/logo.svg';
@@ -10,64 +10,19 @@ import { database } from '../services/firebase';
 import { Question } from '../components/Qustion';
 
 import '../styles/room.scss';
+import { useRoom } from '../hooks/useRoom';
 
-
-type FirebaseQuestions = Record<string, { // Record no TS é para identificar um objeto
-  author: {
-    name: string,
-    avatar: string,
-  },
-  content: string,
-  isAnswered: boolean,
-  isHighLighted: boolean,
-}>
 
 type RoomParams = {
   id: string;
 }
 
-type QuestionType = {
-  id: string,
-  author: {
-    name: string,
-    avatar: string,
-  },
-  content: string,
-  isAnswered: boolean,
-  isHighLighted: boolean,
-}
-
 export function Room() {
   const params = useParams<RoomParams>(); // <> é um generic do TypeScript para que a função saiba qual tipo de parâmetro irá receber
   const roomId = params.id;
-  const [questions, setQuestions] = useState<QuestionType[]>([]);
-  const [title, setTitle] = useState('');
-
-  useEffect(()=> {
-    const roomRef = database.ref(`rooms/${roomId}`) // acessa a referencia do banco de dados para saber onde estão as perguntas
-    
-    roomRef.on('value', room => { //documentacao do firebase --> on é um event listener (em tempo real) que oberserva que qualquer informação mudar ele executará o código e substituir as info em tela
-      const databaseRoom = room.val(); // pega as informações do banco de dados
-      const fireBaseQuestions: FirebaseQuestions = databaseRoom.questions ?? {};
-
-      const parsedQuestions = Object.entries(fireBaseQuestions).map(([key, value]) => { // o firebase retorna um objeto e poir isso foi necessário criar um array com Object.entries
-        return {
-          id: key,
-          content: value.content,
-          author: value.author,
-          isHighLighted: value.isHighLighted,
-          isAnswered: value.isAnswered,
-        }
-      });
-
-      setQuestions(parsedQuestions);
-      setTitle(databaseRoom.title);
-    });
-
-  }, [roomId]);
-
   const [newQuestion, setNewQuestion] = useState('');
   const { user } = useAuth();
+  const { questions, title } = useRoom(roomId)
 
   async function handleSendQuestion(event: FormEvent) { // função responsável por enviar uma pergunta
     event.preventDefault();
