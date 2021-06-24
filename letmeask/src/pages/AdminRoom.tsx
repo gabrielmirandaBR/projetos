@@ -7,7 +7,7 @@ import logoImg from '../assets/images/logo.svg';
 import { RoomCode } from '../components/RoomCode'
 import { useAuth } from '../hooks/useAuth';
 import { database } from '../services/firebase';
-import { Question } from '../components/Qustion';
+import { Question } from '../components/Question';
 import { Button } from '../components/Button';
 
 import '../styles/room.scss';
