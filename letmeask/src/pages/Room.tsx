@@ -7,6 +7,7 @@ import { Button } from '../components/Button';
 import { RoomCode } from '../components/RoomCode'
 import { useAuth } from '../hooks/useAuth';
 import { database } from '../services/firebase';
+import { Question } from '../components/Qustion';
 
 import '../styles/room.scss';
 
@@ -25,7 +26,7 @@ type RoomParams = {
   id: string;
 }
 
-type Question = {
+type QuestionType = {
   id: string,
   author: {
     name: string,
@@ -39,7 +40,7 @@ type Question = {
 export function Room() {
   const params = useParams<RoomParams>(); // <> é um generic do TypeScript para que a função saiba qual tipo de parâmetro irá receber
   const roomId = params.id;
-  const [questions, setQuestions] = useState<Question[]>([]);
+  const [questions, setQuestions] = useState<QuestionType[]>([]);
   const [title, setTitle] = useState('');
 
   useEffect(()=> {
@@ -47,7 +48,6 @@ export function Room() {
     
     roomRef.on('value', room => { //documentacao do firebase --> on é um event listener (em tempo real) que oberserva que qualquer informação mudar ele executará o código e substituir as info em tela
       const databaseRoom = room.val(); // pega as informações do banco de dados
-      console.log(databaseRoom)
       const fireBaseQuestions: FirebaseQuestions = databaseRoom.questions ?? {};
 
       const parsedQuestions = Object.entries(fireBaseQuestions).map(([key, value]) => { // o firebase retorna um objeto e poir isso foi necessário criar um array com Object.entries
@@ -76,7 +76,7 @@ export function Room() {
       return;
     }
 
-    if(!user) { // se o usuárip nao estiver logado retorna erro
+    if(!user) { // se o usuário nao estiver logado retorna erro
       throw new Error ('You must be logged in');
     }
 
@@ -129,8 +129,18 @@ export function Room() {
             <Button type="submit" disabled={ !user }>Enviar pergunta</Button>
           </div>
         </form>
-
-        {JSON.stringify(questions)}
+        
+        <div className="question-list">
+          {questions.map((question) => {
+            return (
+              <Question 
+                content={ question.content } 
+                author={ question.author }
+                key={ question.id }
+              />
+            )
+          })}
+        </div>
       </main>
     </div>
   );

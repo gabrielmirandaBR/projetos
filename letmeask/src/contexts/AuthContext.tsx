@@ -9,7 +9,7 @@ type User = {
 
 type AuthContextType = {
   user: User | undefined;
-  signInWithGoogle: () => Promise<void>, // função que retorna uma Promise sem parâmetro
+  signInWithGoogle: () => Promise<void>, // função que retorna uma Promise sem retorno
 }
 
 type AuthContextProviderProps = {
@@ -21,8 +21,8 @@ export const AuthContext = createContext({} as AuthContextType); // hook utiliza
 export function AuthContextProvider (props: AuthContextProviderProps) {
   const [user, setUser] = useState<User>(); // useState irá usar os parâmetros de User, por isso <User>
 
-  useEffect(() => { // 1 parametro = qual funcao quer executar após a renderização da página | 2 paramentro = quando será executada(sempre um array) vazio, siginifica que a função será executada uma única vez
-    const unsubscribe = auth.onAuthStateChanged( user => { // observador para identificar o usuário https://firebase.google.com/docs/auth/web/manage-users
+  useEffect(() => { // 1 parametro = qual funcao quer executar após a renderização da página | 2 paramentro = quando será executada(sempre um array) vazio, siginifica que a função será executada uma unica vez quando o componenete for renderizado
+    const unsubscribe = auth.onAuthStateChanged( user => { // funcao do firebase - observador para identificar o usuário https://firebase.google.com/docs/auth/web/manage-users
       if(user) {
         const { displayName, photoURL, uid } = user;
 
