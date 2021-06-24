@@ -1,17 +1,14 @@
-import { FormEvent, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import logoImg from '../assets/images/logo.svg';
 
-
-import { RoomCode } from '../components/RoomCode'
-import { useAuth } from '../hooks/useAuth';
-import { database } from '../services/firebase';
-import { Question } from '../components/Question';
 import { Button } from '../components/Button';
+import { Question } from '../components/Question';
+import { RoomCode } from '../components/RoomCode'
+// import { useAuth } from '../hooks/useAuth';
+import { useRoom } from '../hooks/useRoom';
 
 import '../styles/room.scss';
-import { useRoom } from '../hooks/useRoom';
 
 
 type RoomParams = {
@@ -21,35 +18,11 @@ type RoomParams = {
 export function AdminRoom() {
   const params = useParams<RoomParams>(); // <> é um generic do TypeScript para que a função saiba qual tipo de parâmetro irá receber
   const roomId = params.id;
-  const [newQuestion, setNewQuestion] = useState('');
-  const { user } = useAuth();
+
+  // const { user } = useAuth();
   const { questions, title } = useRoom(roomId)
 
-  async function handleSendQuestion(event: FormEvent) { // função responsável por enviar uma pergunta
-    event.preventDefault();
 
-    if(newQuestion.trim() === '') { // se não houver nada escrio na pergunta retorna
-      return;
-    }
-
-    if(!user) { // se o usuário nao estiver logado retorna erro
-      throw new Error ('You must be logged in');
-    }
-
-    const question = { // cria um objeto com as informações para cada pergunta
-      content: newQuestion,
-      author: {
-        name: user.name,
-        avatar: user.avatar,
-      },
-      isHighLighted: false, // check feito pelo admin para saber se a pergunta está sendo respondida
-      isAnswered: false, // se a pergunta já foi respondida ou nao
-    };
-
-    await database.ref(`rooms/${roomId}/questions`).push(question); //  acessa a sala com seu id(conf do banco de dados) e salva uma lista(por isso do push) informação chamada questions com a question criada no state 
-    
-    setNewQuestion('');
-  }
 
   return (
     <div id="page-room">

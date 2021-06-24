@@ -1,29 +1,36 @@
 import { useEffect, useState } from "react";
 import { database } from "../services/firebase";
+import { useAuth } from "./useAuth";
 
 type QuestionType = {
-  id: string,
+  id: string;
   author: {
-    name: string,
-    avatar: string,
+    name: string;
+    avatar: string;
   },
-  content: string,
-  isAnswered: boolean,
-  isHighLighted: boolean,
+  content: string;
+  isAnswered: boolean;
+  isHighLighted: boolean;
+  likeCount: number;
+  likedId: string | undefined;
 }
 
 type FirebaseQuestions = Record<string, { // Record no TS é para identificar um objeto
   author: {
-    name: string,
-    avatar: string,
+    name: string;
+    avatar: string;
   },
-  content: string,
-  isAnswered: boolean,
-  isHighLighted: boolean,
+  content: string;
+  isAnswered: boolean;
+  isHighLighted: boolean;
+  likes: Record<string, { // é um objeto Record que recebe uma string(id) e outra chave que é o authorId
+    authorId: string;
+  }>;
 }>
 
 
 export function useRoom(roomId: string) {
+  const { user } = useAuth();
   const [questions, setQuestions] = useState<QuestionType[]>([]);
   const [title, setTitle] = useState('');
 
@@ -41,6 +48,8 @@ export function useRoom(roomId: string) {
           author: value.author,
           isHighLighted: value.isHighLighted,
           isAnswered: value.isAnswered,
+          likeCount: Object.values(value.likes ?? {}).length,
+          likedId: Object.entries(value.likes ?? {}).find(([key, like]) => like.authorId === user?.id)?.[0], // esse último ? verifica se naão retornar nada ele irá retornar nulo
         }
       });
 
@@ -48,7 +57,11 @@ export function useRoom(roomId: string) {
       setTitle(databaseRoom.title);
     });
 
-  }, [roomId]);
+    return () => {
+      roomRef.off('value') // função do firebase que remove todos os eventListener que tem 'value'
+    }
+
+  }, [roomId, user?.id]);
   return {
     questions,
     title,
