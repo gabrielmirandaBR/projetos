@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import logoImg from '../assets/images/logo.svg';
 import deleteImg from '../assets/images/delete.svg';
@@ -20,12 +20,21 @@ type RoomParams = {
 export function AdminRoom() {
   const params = useParams<RoomParams>(); // <> é um generic do TypeScript para que a função saiba qual tipo de parâmetro irá receber
   const roomId = params.id;
+  const history = useHistory();
 
   // const { user } = useAuth();
   const { questions, title } = useRoom(roomId)
 
+  async function handleEndRoom() {
+    database.ref(`rooms/${roomId}`).update({ // update altera os dados da sala
+      endedAt: new Date(),
+    });
+
+    history.push('/');
+  }
+
   async function handleDeleteQuestion(questionId: string) {
-   if(window.confirm('Tem certeza que deseja excluir esta pergunta?')) { // função js que retorna um booleano
+   if(window.confirm('Tem certeza que deseja excluir esta pergunta?')) { //  modal padrao do JS que retorna um booleano
     await database.ref(`rooms/${roomId}/questions/${questionId}`).remove()
    } 
   }
@@ -37,7 +46,7 @@ export function AdminRoom() {
           <img src={ logoImg } alt="Letmeask" />
           <div>
             <RoomCode code={ roomId } />
-            <Button isOutLined>Encerrar sala</Button>
+            <Button isOutLined onClick={ handleEndRoom }>Encerrar sala</Button>
           </div>
         </div>
       </header>
