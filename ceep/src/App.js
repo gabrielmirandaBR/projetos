@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ListaDeNotas from "./components/ListaDeNotas";
 import FormularioCadastro from "./components/FormularioCadastro";
+import ListaDeCategorias from './components/ListaDeCategorias/ListaDeCategorias';
 import "./assets/App.css";
 import './assets/index.css';
 
@@ -10,23 +11,46 @@ class App extends Component {
 
     this.state = {
       tasks: [],
+      categorias: [],
     }
 
-    this.handleClick = this.handleClick.bind(this);
+    this.criaTask = this.criaTask.bind(this);
+    this.removeTask = this.removeTask.bind(this);
+    this.adicionaCategoria = this.adicionaCategoria.bind(this);
   }
 
-  handleClick(title, text) {
+  criaTask(titulo, texto, categoria) {
     this.setState(({ tasks }) => ({
-      tasks: [...tasks, { text, title }]
+      tasks: [...tasks, { texto, titulo, categoria }]
     }));
   }
 
+  removeTask(index){
+    const { tasks } = this.state;
+    const newTasks = tasks;
+    newTasks.splice(index, 1);
+    this.setState({
+      tasks: newTasks,
+    });
+  }
+
+  adicionaCategoria(categoria){
+    const { categorias } = this.state;
+
+    this.setState({
+      categorias: [...categorias, categoria],
+    });
+  }
+
   render() {
-    const { tasks } = this.state
+    const { tasks, categorias } = this.state
     return (
       <section className="conteudo">
-        <FormularioCadastro handleClick={ this.handleClick }/>
-        <ListaDeNotas tasks={ tasks }/>
+        <FormularioCadastro criaTask={ this.criaTask } categorias={ categorias }/>
+        <main className="listas">
+          <ListaDeCategorias novaCategoria={ this.adicionaCategoria } categorias={ categorias }/>
+          <ListaDeNotas tasks={ tasks } removeTask={ this.removeTask }/>
+        </main>
       </section>
     );
   }
