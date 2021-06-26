@@ -27,7 +27,7 @@ export function Room() {
   async function handleSendQuestion(event: FormEvent) { // função responsável por enviar uma pergunta
     event.preventDefault();
 
-    if(newQuestion.trim() === '') { // se não houver nada escrio na pergunta retorna
+    if(newQuestion.trim() === '') { // se não houver nada escrito na pergunta, retorna
       return;
     }
 
@@ -58,7 +58,6 @@ export function Room() {
         authorId: user?.id,
       });
     }
-    
   }
 
   return (

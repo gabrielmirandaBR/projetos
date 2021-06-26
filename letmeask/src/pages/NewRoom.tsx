@@ -8,7 +8,6 @@ import { Button } from '../components/Button';
 import { database } from '../services/firebase';
 import { useAuth } from '../hooks/useAuth';
 
-
 import '../styles/auth.scss';
 
 
