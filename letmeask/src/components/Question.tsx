@@ -4,16 +4,27 @@ import '../styles/question.scss';
 type QuestionProps = {
   content: string;
   author: {
-    name: string,
-    avatar: string,
+    name: string;
+    avatar: string;
   }
-  children?: ReactNode // qualquer conteúdo JSX (textos, divs, componentes...)
+  children?: ReactNode; // qualquer conteúdo JSX (textos, divs, componentes...)
+  isAnswered?: boolean;
+  isHighLighted?: boolean;
 }
 
 
-export function Question({content, author, children}: QuestionProps) {
+export function Question({
+  content, 
+  author, 
+  children, 
+  isHighLighted = false, 
+  isAnswered = false,
+}: QuestionProps) {
+
   return (
-    <div className="question">
+    <div 
+      className={`question ${isAnswered ? 'answered' : ''} ${isHighLighted ? 'highlighted' : ''}`}
+    >
       <p>{content}</p>
       <footer>
         <div className="user-info">
